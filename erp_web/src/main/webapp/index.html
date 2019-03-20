@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$('#updatePwdDlg').dialog({
+		    title: 'My Dialog',
+		    width: 400,
+		    closed: true,
+		    cache: false,
+		    modal: true,
+		    buttons: [{
+                text:'确定',
+                iconCls:'icon-ok',
+                handler:function(){
+                	var isValid = $("#updatePwdDlg").form('validate');
+                	if (isValid) {
+						var oldPwd = $("#oldPwd").val();
+						var newPwd = $("#newPwd").val();
+						var rePwd = $("#rePwd").val();
+						if (newPwd!=rePwd) {
+							$.messager.alert("提示","两次输入的密码不一致","info");
+							return ;
+						}else{
+							var formData = $('#updatePwdForm').serializeJSON();
+							$.ajax({
+		                		url:'emp_updatePwd',
+		                		data:formData,
+		                		dataType:'json',
+		                		type:'post',
+		                		success:function(rtn){
+		                			if (rtn.success) {
+		                				$('#updatePwdDlg').dialog('close');
+									}
+		                			$.messager.alert("提示",rtn.message,"info")
+		                			$('#updatePwdForm').form('clear');
+		                		}
+	                		});
+						}
+					}else{
+						$.messager.alert("提示","请输入正确的数据","info")
+					}
+                	
+                }
+            },{
+                text:'取消',
+                iconCls:'icon-cancel',
+                handler:function(){
+                	$('#updatePwdDlg').dialog('close');
+                }
+            }]
+		});
+		
+	})
+	function changePwd(){
+		$('#updatePwdDlg').dialog('open');
+	}
+</script>
+<style type="text/css">
+	.menuPanel{
+		overflow: auto; padding: 10px;
+	}
+</style>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north'" style="height: 35px">
+			<div class="easyui-panel" style="text-align: right"
+				data-options="fit:true">
+				欢迎: <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'"><span
+					id="username">123</span></a>
+			</div>
+			<div id="mm1" style="width: 150px;">
+				<div data-options="iconCls:'icon-edit'" onclick="changePwd()">修改密码</div>
+				<div data-options="iconCls:'icon-undo'" onclick="loginOut()">退出</div>
+			</div>
+		</div>
+		<!-- 菜单 -->
+		<div data-options="region:'west',split:true" title="系统菜单"
+			style="width: 200px;">
+			<div id="mainMenu" class="easyui-accordion"
+				 data-options="fit:true">
+			</div>
+
+		</div>
+		<div data-options="region:'center',title:'数据区域',iconCls:'icon-ok'">
+			<div id="tt" class="easyui-tabs" data-options="fit:true">
+				<div title="数据区域" data-options="closable:true"
+					style="padding: 20px; display: none;">ERP数据区域</div>
+			</div>
+		</div>
+		<div id="updatePwdDlg">
+			<div class="easyui-panel" title="" style="padding:30px	;">
+				<form id="updatePwdForm">
+					﻿<div style="margin-bottom:5px">
+						<input class="easyui-passwordbox" id="oldPwd" name="oldPwd" style="width:100%" data-options="label:'旧密码:',required:true">
+					</div>
+					﻿<div style="margin-bottom:5px">
+						<input class="easyui-passwordbox" id="newPwd" name="newPwd" style="width:100%" data-options="label:'新密码:',required:true">
+					</div>
+					﻿<div style="margin-bottom:5px">
+						<input class="easyui-passwordbox" id="rePwd" name="rePwd" style="width:100%" data-options="label:'确认密码:',required:true">
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>

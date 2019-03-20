@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.huangxin.entity.Emp_role" table="Emp_role">
+			<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+			
+				<param name="sequence_name">emp_role_seq</param>
+			</generator>
+		</id>
+
+		<property name="empuuid"></property>
+<property name="roleuuid"></property>
+
+	</class>
+</hibernate-mapping>

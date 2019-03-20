@@ -1,0 +1,10 @@
+﻿package [package].entity;
+/**
+ * [comment]
+ * @author Kay
+ *
+ */
+public class [Table] {
+	<privateField.txt>
+	<publicMethod.txt>
+}

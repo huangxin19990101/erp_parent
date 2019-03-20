@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+		<!-- 部门 -->
+	<bean id="depBiz" class="com.huangxin.biz.impl.DepBiz">
+		<property name="depDao" ref="depDao" />
+	</bean>
+	<!-- 员工 -->
+	<bean id="empBiz" class="com.huangxin.biz.impl.EmpBiz">
+		<property name="empDao" ref="empDao" />
+	</bean>
+	<!-- 员工角色 -->
+	<bean id="emp_roleBiz" class="com.huangxin.biz.impl.Emp_roleBiz">
+		<property name="emp_roleDao" ref="emp_roleDao" />
+	</bean>
+	<!-- 商品 -->
+	<bean id="goodsBiz" class="com.huangxin.biz.impl.GoodsBiz">
+		<property name="goodsDao" ref="goodsDao" />
+	</bean>
+	<!-- 商品分类 -->
+	<bean id="goodstypeBiz" class="com.huangxin.biz.impl.GoodstypeBiz">
+		<property name="goodstypeDao" ref="goodstypeDao" />
+	</bean>
+	<!-- 盘盈盘亏 -->
+	<bean id="inventoryBiz" class="com.huangxin.biz.impl.InventoryBiz">
+		<property name="inventoryDao" ref="inventoryDao" />
+	</bean>
+	<!-- 菜单 -->
+	<bean id="menuBiz" class="com.huangxin.biz.impl.MenuBiz">
+		<property name="menuDao" ref="menuDao" />
+	</bean>
+	<!-- 订单明细 -->
+	<bean id="orderdetailBiz" class="com.huangxin.biz.impl.OrderdetailBiz">
+		<property name="orderdetailDao" ref="orderdetailDao" />
+	</bean>
+	<!-- 订单 -->
+	<bean id="ordersBiz" class="com.huangxin.biz.impl.OrdersBiz">
+		<property name="ordersDao" ref="ordersDao" />
+	</bean>
+	<!-- 退货订单明细 -->
+	<bean id="returnorderdetailBiz" class="com.huangxin.biz.impl.ReturnorderdetailBiz">
+		<property name="returnorderdetailDao" ref="returnorderdetailDao" />
+	</bean>
+	<!-- 退货订单 -->
+	<bean id="returnordersBiz" class="com.huangxin.biz.impl.ReturnordersBiz">
+		<property name="returnordersDao" ref="returnordersDao" />
+	</bean>
+	<!-- 角色 -->
+	<bean id="roleBiz" class="com.huangxin.biz.impl.RoleBiz">
+		<property name="roleDao" ref="roleDao" />
+	</bean>
+	<!-- 角色菜单 -->
+	<bean id="role_menuBiz" class="com.huangxin.biz.impl.Role_menuBiz">
+		<property name="role_menuDao" ref="role_menuDao" />
+	</bean>
+	<!-- 仓库 -->
+	<bean id="storeBiz" class="com.huangxin.biz.impl.StoreBiz">
+		<property name="storeDao" ref="storeDao" />
+	</bean>
+	<!-- 仓库库存 -->
+	<bean id="storedetailBiz" class="com.huangxin.biz.impl.StoredetailBiz">
+		<property name="storedetailDao" ref="storedetailDao" />
+	</bean>
+	<!-- 仓库操作记录 -->
+	<bean id="storeoperBiz" class="com.huangxin.biz.impl.StoreoperBiz">
+		<property name="storeoperDao" ref="storeoperDao" />
+	</bean>
+	<!-- 供应商 -->
+	<bean id="supplierBiz" class="com.huangxin.biz.impl.SupplierBiz">
+		<property name="supplierDao" ref="supplierDao" />
+	</bean>
+
+
+</beans>

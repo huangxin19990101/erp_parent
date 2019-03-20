@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+		<!-- comment -->
+	<bean id="depDao" class="com.huangxin.dao.impl.DepDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="empDao" class="com.huangxin.dao.impl.EmpDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="emp_roleDao" class="com.huangxin.dao.impl.Emp_roleDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="goodsDao" class="com.huangxin.dao.impl.GoodsDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="goodstypeDao" class="com.huangxin.dao.impl.GoodstypeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="inventoryDao" class="com.huangxin.dao.impl.InventoryDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="menuDao" class="com.huangxin.dao.impl.MenuDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="orderdetailDao" class="com.huangxin.dao.impl.OrderdetailDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="ordersDao" class="com.huangxin.dao.impl.OrdersDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="returnorderdetailDao" class="com.huangxin.dao.impl.ReturnorderdetailDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="returnordersDao" class="com.huangxin.dao.impl.ReturnordersDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="roleDao" class="com.huangxin.dao.impl.RoleDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="role_menuDao" class="com.huangxin.dao.impl.Role_menuDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="storeDao" class="com.huangxin.dao.impl.StoreDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="storedetailDao" class="com.huangxin.dao.impl.StoredetailDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="storeoperDao" class="com.huangxin.dao.impl.StoreoperDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- comment -->
+	<bean id="supplierDao" class="com.huangxin.dao.impl.SupplierDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	
+</beans>

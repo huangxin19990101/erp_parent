@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>员工管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.js"></script>
+<script type="text/javascript" src="js/date.js"></script>
+<script type="text/javascript" src="js/crud.js"></script>
+<script type="text/javascript">
+	var text='员工';
+	var name = "emp";
+	var columns = [ [
+		﻿{field : 'uuid',title : '编号',width : '100px',align : 'center'},
+﻿		{field : 'username',title : '登陆名',width : 100,align : 'center'},
+﻿		{field : 'name',title : '真实姓名',width : '150px',align : 'center'},
+﻿		{field : 'gender',title : '性别',width : '150px',align : 'center',formatter: function(value,row,index){
+			if (value * 1 == 1){//转换成数字类型
+				return '男';
+			} 
+			if (value * 1 == 0 ) {
+				return '女';
+			}
+}},
+﻿		{field : 'email',title : '邮件地址',width : '150px',align : 'center'},
+﻿		{field : 'tele',title : '联系电话',width : '150px',align : 'center'},
+﻿		{field : 'address',title : '联系地址',width : '150px',align : 'center'},
+		{field : 'birthday',title : '出生年月日',width : '150px',align : 'center',formatter: function(value,row,index){
+			return new Date(value).Format("yyyy-MM-dd");
+		}},
+﻿		{field : 'dep',title : '部门编号',width : '150px',align : 'center',formatter: function(value,row,index){
+			return value.name;
+		}},
+			
+		{
+			field : 'xxxx',
+			title : '操作',
+			width : '150px',
+			align : 'center',
+			formatter : function(value, row, index) {
+				return "<a href='javascript:void(0)' onclick='edit("+row.uuid+")'>修改</a> | <a href='javascript:void(0)' onclick='del("+row.uuid+")'>删除</a>"
+			}
+		} ] ];
+	//给combobox加入请选择选项
+	$(function(){
+		$('#depSearch').combobox({
+		    url:'dep_list',
+		    valueField:'uuid',
+		    textField:'name',
+		    loadFilter: function (data) {
+		        var obj = {};
+		        obj.uuid = '';
+		        obj.name = '请选择'
+		        //在数组0位置插入obj,不删除原来的元素
+		        data.splice(0, 0, obj)      
+		        return data;
+		    }
+		});
+	})
+</script>
+
+</head>
+<body>
+<div class="easyui-panel" style="padding:4px; border-bottom: 0px">
+	<form id="searchForm">
+	
+		<input class="easyui-textbox" data-options="label: '登陆名:'" style="width:300px" name="t1.username">
+		<input class="easyui-textbox" data-options="label: '真实姓名:'" style="width:300px" name="t1.name">
+		
+		 
+		<input class="easyui-textbox" data-options="label: '邮件地址:'" style="width:300px" name="t1.email">
+		<input class="easyui-textbox" data-options="label: '联系电话:'" style="width:300px" name="t1.tele"><br>
+		<input class="easyui-textbox" data-options="label: '联系地址:'" style="width:300px" name="t1.address">
+		
+		<input class="easyui-datebox"    name="t1.birthday" style="width:300px" data-options="label:'出生年月日:'">
+		<input class="easyui-datebox"    name="t2.birthday" style="width:300px" data-options="label:'到:'">
+		
+		
+		<input class="easyui-combobox" id="depSearch" data-options="label: '部门编号:'" style="width:300px" name="t1.dep.uuid" editable="false"><br>
+		<input class="easyui-radiobutton" name="t1.gender" value="1" label="男:" data-options="labelWidth:'50px'">
+		 <input class="easyui-radiobutton" name="t1.gender" value="0" label="女:" data-options="labelWidth:'50px'">
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px" id="btnSearch">查询</a>
+			
+	</form>
+	</div>
+	<table id="grid"></table>
+	<!-- 添加窗口 -->
+	<div id="editDlg">
+		<div class="easyui-panel" title="" style="padding:30px	;">
+			<form id="editForm">
+		﻿<div style="margin-bottom:10px">
+		<input class="easyui-textbox" id="username" name="t.username" style="width:100%" data-options="label:'登陆名:',required:true,missingMessage:'请输入用户名'">
+		</div>
+		﻿
+		﻿<div style="margin-bottom:10px">
+			<input class="easyui-textbox" name="t.name" style="width:100%" data-options="label:'真实姓名:',required:true">
+		</div>
+		﻿<div style="margin-bottom:10px">
+	
+		<input class="easyui-radiobutton" name="t.gender" value="1" label="男:" data-options="labelWidth:'50px'">&nbsp;&nbsp;
+		 <input class="easyui-radiobutton" name="t.gender" value="0" label="女:" data-options="labelWidth:'50px'">
+		</div>
+		﻿<div style="margin-bottom:10px">
+			<input class="easyui-textbox" name="t.email" style="width:100%" data-options="label:'邮件地址:',required:true,validType:'email'">
+		</div>
+		﻿<div style="margin-bottom:10px">
+			<input class="easyui-textbox" name="t.tele" style="width:100%" data-options="label:'联系电话:',required:true">
+		</div>
+		﻿<div style="margin-bottom:10px">
+			<input class="easyui-textbox" name="t.address" style="width:100%" data-options="label:'联系地址:',required:true">
+		</div>
+		﻿<div style="margin-bottom:10px">
+			<input class="easyui-datebox" editable="false"   name="t.birthday" style="width:100%" data-options="label:'出生年月日:',required:true">
+		</div>
+		﻿<div style="margin-bottom:10px">
+		
+		<input class="easyui-combobox" data-options="label: '部门编号:',valueField:'uuid',textField:'name',url:'dep_list',required:true" style="width:100%" name="t.dep.uuid" editable="false">
+		
+	</div>
+            	﻿<input type="hidden" name="t.uuid">
+
+            	<div style="text-align:center;padding:5px 0">
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">保存</a>
+		        </div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

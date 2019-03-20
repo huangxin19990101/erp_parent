@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>仓库库存管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.js"></script>
+<script type="text/javascript" src="js/crud.js"></script>
+<script type="text/javascript">
+	var text='仓库库存';
+	var name = "storedetail";
+	var columns = [ [
+		﻿{field : 'uuid',title : '编号',width : 100,align : 'center'},
+﻿{field : 'storeuuid',title : '仓库编号',width : 100,align : 'center'},
+﻿{field : 'goodsuuid',title : '商品编号',width : 100,align : 'center'},
+﻿{field : 'num',title : '数量',width : 100,align : 'center'},
+
+		{
+			field : 'xxxx',
+			title : '操作',
+			width : 100,
+			align : 'center',
+			formatter : function(value, row, index) {
+				return "<a href='javascript:void(0)' onclick='edit("+row.uuid+")'>修改</a> | <a href='javascript:void(0)' onclick='del("+row.uuid+")'>删除</a>"
+			}
+		} ] ];
+</script>
+
+</head>
+<body>
+<div class="easyui-panel" style="padding:4px; border-bottom: 0px">
+	<form id="searchForm">
+		
+				<input class="easyui-textbox" data-options="label: '仓库编号:'" style="width:300px" name="t1.storeuuid">
+<input class="easyui-textbox" data-options="label: '商品编号:'" style="width:300px" name="t1.goodsuuid">
+<input class="easyui-textbox" data-options="label: '数量:'" style="width:300px" name="t1.num">
+	
+					 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px" id="btnSearch">查询</a>
+			
+	</form>
+	</div>
+	<table id="grid"></table>
+	<!-- 添加窗口 -->
+	<div id="editDlg">
+		<div class="easyui-panel" title="" style="padding:30px	;">
+			<form id="editForm">
+				﻿<div style="margin-bottom:20px">
+	<input class="easyui-textbox" name="t.storeuuid" style="width:100%" data-options="label:'仓库编号:',required:true">
+</div>
+﻿<div style="margin-bottom:20px">
+	<input class="easyui-textbox" name="t.goodsuuid" style="width:100%" data-options="label:'商品编号:',required:true">
+</div>
+﻿<div style="margin-bottom:20px">
+	<input class="easyui-textbox" name="t.num" style="width:100%" data-options="label:'数量:',required:true">
+</div>
+
+            	﻿<input type="hidden" name="t.column">
+
+            	<div style="text-align:center;padding:5px 0">
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">保存</a>
+		        </div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

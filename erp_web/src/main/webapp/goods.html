@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商品管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.js"></script>
+<script type="text/javascript" src="js/crud.js"></script>
+<script type="text/javascript">
+	var text='商品';
+	var name = "goods";
+	var columns = [ [
+		﻿{field : 'uuid',title : '编号',width : 100,align : 'center'},
+		﻿{field : 'name',title : '名称',width : 100,align : 'center'},
+		﻿{field : 'origin',title : '产地',width : 100,align : 'center'},
+		﻿{field : 'producer',title : '厂家',width : 150,align : 'center'},
+		﻿{field : 'unit',title : '计量单位',width : 100,align : 'center'},
+		﻿{field : 'inprice',title : '进货价格',width : 100,align : 'center'},
+		﻿{field : 'outprice',title : '销售价格',width : 100,align : 'center'},
+		﻿{field : 'goodstype',title : '商品类型',width : 100,align : 'center',formatter:function(value,row,index){
+			return value.name;
+		}},
+
+		{
+			field : 'xxxx',
+			title : '操作',
+			width : 100,
+			align : 'center',
+			formatter : function(value, row, index) {
+				return "<a href='javascript:void(0)' onclick='edit("+row.uuid+")'>修改</a> | <a href='javascript:void(0)' onclick='del("+row.uuid+")'>删除</a>"
+			}
+		} ] ];
+	
+	$(function(){
+		$('#goodstypeSearch').combobox({
+		    url:'goodstype_list',
+		    valueField:'uuid',
+		    textField:'name',
+		    loadFilter: function (data) {
+		        var obj = {};
+		        obj.uuid = '';
+		        obj.name = '请选择'
+		        //在数组0位置插入obj,不删除原来的元素
+		        data.splice(0, 0, obj)      
+		        return data;
+		    }
+		});
+	})
+</script>
+
+</head>
+<body>
+<div class="easyui-panel" style="padding:4px; border-bottom: 0px">
+	<form id="searchForm">
+		<input class="easyui-textbox" data-options="label: '名称:'" style="width:300px" name="t1.name">
+		<input class="easyui-textbox" data-options="label: '产地:'" style="width:300px" name="t1.origin">
+		<input class="easyui-textbox" data-options="label: '厂家:'" style="width:300px" name="t1.producer">
+		<input class="easyui-textbox" data-options="label: '计量单位:'" style="width:300px" name="t1.unit"><br>
+		<input class="easyui-numberbox" data-options="label: '进货价格:',min:0,precision:2,prefix:'￥'" style="width:300px" name="t1.inprice">
+		<input class="easyui-numberbox" data-options="label: '到:',min:0,precision:2,prefix:'￥'" style="width:300px" name="t2.inprice">
+		<input class="easyui-numberbox" data-options="label: '销售价格:',min:0,precision:2,prefix:'￥'" style="width:300px" name="t1.outprice">
+		<input class="easyui-numberbox" data-options="label: '到:',min:0,precision:2,prefix:'￥'" style="width:300px" name="t2.outprice">
+		
+		<input class="easyui-combobox" id="goodstypeSearch" editable="false" data-options="label: '商品类型:'" style="width:300px" name="t1.goodstype.uuid">
+		
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px" id="btnSearch">查询</a>
+			
+	</form>
+	</div>
+	<table id="grid"></table>
+	<!-- 添加窗口 -->
+	<div id="editDlg">
+		<div class="easyui-panel" title="" style="padding:30px	;">
+			<form id="editForm">
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-textbox" name="t.name" style="width:100%" data-options="label:'名称:',required:true">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-textbox" name="t.origin" style="width:100%" data-options="label:'产地:',required:true">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-textbox" name="t.producer" style="width:100%" data-options="label:'厂家:',required:true">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-textbox" name="t.unit" style="width:100%" data-options="label:'计量单位:',required:true">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-numberbox" name="t.inprice" style="width:100%" data-options="label:'进货价格:',required:true,min:0,precision:2,prefix:'￥'">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-numberbox" name="t.outprice" style="width:100%" data-options="label:'销售价格:',required:true,min:0,precision:2,prefix:'￥'">
+				</div>
+				﻿<div style="margin-bottom:20px">
+					<input class="easyui-combobox" name="t.goodstype.uuid" style="width:100%" editable="false" data-options="label:'商品类型:',required:true,valueField:'uuid',textField:'name',url:'goodstype_list'">
+				</div>
+
+            	﻿<input type="hidden" name="t.uuid">
+
+            	<div style="text-align:center;padding:5px 0">
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">保存</a>
+		        </div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

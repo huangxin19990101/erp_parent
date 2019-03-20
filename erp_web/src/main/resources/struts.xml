@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="erp" extends="struts-default" namespace="/">
+		<!--部门 -->
+		<action name="dep_*" method="{1}" class="depAction"></action>
+		<!--员工 -->
+		<action name="emp_*" method="{1}" class="empAction"></action>
+		<!--员工角色 -->
+		<action name="emp_role_*" method="{1}" class="emp_roleAction"></action>
+		<!--商品 -->
+		<action name="goods_*" method="{1}" class="goodsAction"></action>
+		<!--商品分类 -->
+		<action name="goodstype_*" method="{1}" class="goodstypeAction"></action>
+		<!--盘盈盘亏 -->
+		<action name="inventory_*" method="{1}" class="inventoryAction"></action>
+		<!--菜单 -->
+		<action name="menu_*" method="{1}" class="menuAction"></action>
+		<!--订单明细 -->
+		<action name="orderdetail_*" method="{1}" class="orderdetailAction"></action>
+		<!--订单 -->
+		<action name="orders_*" method="{1}" class="ordersAction"></action>
+		<!--退货订单明细 -->
+		<action name="returnorderdetail_*" method="{1}"
+			class="returnorderdetailAction"></action>
+		<!--退货订单 -->
+		<action name="returnorders_*" method="{1}" class="returnordersAction"></action>
+		<!--角色 -->
+		<action name="role_*" method="{1}" class="roleAction"></action>
+		<!--角色菜单 -->
+		<action name="role_menu_*" method="{1}" class="role_menuAction"></action>
+		<!--仓库 -->
+		<action name="store_*" method="{1}" class="storeAction"></action>
+		<!--仓库库存 -->
+		<action name="storedetail_*" method="{1}" class="storedetailAction"></action>
+		<!--仓库操作记录 -->
+		<action name="storeoper_*" method="{1}" class="storeoperAction"></action>
+		<!--供应商 -->
+		<action name="supplier_*" method="{1}" class="supplierAction"></action>
+		<!-- 登陆 -->
+		<action name="login_*" method="{1}" class="loginAction"></action>
+
+	</package>
+</struts>

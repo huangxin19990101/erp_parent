@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.huangxin.entity.Goodstype" table="Goodstype">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+
+				<param name="sequence_name">goodstype_seq</param>
+			</generator>
+		</id>
+
+		<property name="name"></property>
+		<set name="goodss">
+			<key column="goodstypeuuid"></key>
+			<one-to-many class="com.huangxin.entity.Goods"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>员工管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.js"></script>
+<script type="text/javascript" src="js/date.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#grid').datagrid({
+			url : 'emp_getList',
+			striped : true,//各行换色
+			pagination : true,//分页工具栏
+			pagePosition : 'bottom',
+			singleSelect:true,
+			pageSize : 10,
+			pageNumber : 1,
+			pageList : [ 10,20 ],
+			columns : [ [
+				﻿{field : 'uuid',title : '编号',width : '100px',align : 'center'},
+				﻿		{field : 'username',title : '登陆名',width : 100,align : 'center'},
+				﻿		{field : 'name',title : '真实姓名',width : '150px',align : 'center'},
+				﻿		{field : 'gender',title : '性别',width : '150px',align : 'center',formatter: function(value,row,index){
+							if (value * 1 == 1){//转换成数字类型
+								return '男';
+							} 
+							if (value * 1 == 0 ) {
+								return '女';
+							}
+				}},
+				﻿		{field : 'email',title : '邮件地址',width : '150px',align : 'center'},
+				﻿		{field : 'tele',title : '联系电话',width : '150px',align : 'center'},
+				﻿		{field : 'address',title : '联系地址',width : '150px',align : 'center'},
+						{field : 'birthday',title : '出生年月日',width : '150px',align : 'center',formatter: function(value,row,index){
+							return new Date(value).Format("yyyy-MM-dd");
+						}},
+				﻿		{field : 'dep',title : '部门编号',width : '150px',align : 'center',formatter: function(value,row,index){
+							return value.name;
+						}},
+							
+						{
+							field : 'xxxx',
+							title : '操作',
+							width : '150px',
+							align : 'center',
+							formatter : function(value, row, index) {
+								return "<a href='javascript:void(0)' onclick='updatePwd_reset("+row.uuid+")'>重置密码</a>"
+							}
+						} ] ]
+		});
+		
+		/* 编辑窗口 */
+		$('#upadtePwdDlg').dialog({
+		    title: '重置密码',
+		    width: 300,
+		    closed: true,
+		    modal: true
+		});
+	})
+	function updatePwd_reset(uuid){
+		$('#upadtePwdDlg').dialog("open")
+		$('#updatePwdForm').form('clear');
+		$('#updatePwdForm').form('load',{id:uuid,newPwd:''});
+	}
+	function submitForm(){
+		var isValid = $("#updatePwdForm").form('validate');
+		if (isValid) {
+			/* 窗口提交 */
+			var formData = $('#updatePwdForm').serializeJSON();
+			$.ajax({
+				url:"emp_updatePwd_reset",
+				data:formData,
+				dataType:'json',
+				type:'post',
+				success:function(rtn){
+					if (rtn.success) {
+						//成功则关闭对话框
+						$('#upadtePwdDlg').dialog('close');
+						$('#grid').datagrid('reload');
+						
+					}
+					//返回的数据
+					$.messager.alert('提示',rtn.message,'info');
+					
+				}
+			});
+		}else{
+			$.messager.alert('提示','请输入正确的信息！','info'); 
+			return ;
+		}
+	}
+</script>
+
+</head>
+<body>
+
+	<table id="grid"></table>
+	<!-- 添加窗口 -->
+	<div id="upadtePwdDlg">
+		<div class="easyui-panel" title="" style="padding:30px	;">
+			<form id="updatePwdForm">
+			<input type="hidden" name="id">
+				﻿<div style="margin-bottom:10px">
+				<input class="easyui-passwordbox" id="newPwd" name="newPwd" style="width:100%" data-options="label:'新密码:',required:true,missingMessage:'请输入新密码'">
+				</div>
+            	<div style="text-align:center;padding:5px 0">
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">保存</a>
+		        </div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

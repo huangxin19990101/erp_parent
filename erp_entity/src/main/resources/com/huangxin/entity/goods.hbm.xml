@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.huangxin.entity.Goods" table="Goods">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+
+				<param name="sequence_name">goods_seq</param>
+			</generator>
+		</id>
+
+		<property name="name"></property>
+		<property name="origin"></property>
+		<property name="producer"></property>
+		<property name="unit"></property>
+		<property name="inprice"></property>
+		<property name="outprice"></property>
+		<!-- <property name="goodstypeuuid"></property> -->
+		<many-to-one name="goodstype" column="goodstypeuuid" class="com.huangxin.entity.Goodstype"></many-to-one>
+	</class>
+</hibernate-mapping>
